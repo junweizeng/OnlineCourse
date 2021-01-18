@@ -15,6 +15,7 @@
 
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
