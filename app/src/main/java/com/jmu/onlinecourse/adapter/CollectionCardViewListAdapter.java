@@ -2,6 +2,7 @@ package com.jmu.onlinecourse.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -40,22 +41,21 @@ public class CollectionCardViewListAdapter  extends BaseRecyclerAdapter<Collecti
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
-    }
-
-    @Override
     protected void bindData(@NonNull RecyclerViewHolder holder, int position, CollectionInfo item) {
         if(position < collectionInfoList.size()) {
             CollectionInfo collectionInfo = collectionInfoList.get(position);
             holder.text(R.id.tv_name, collectionInfo.getName());
-            holder.text(R.id.tv_type, collectionInfo.getType());
+            holder.text(R.id.iv_type, collectionInfo.getType());
             CardView cardView = (CardView) holder.getView(R.id.cv_background);
+            ImageView ivType = (ImageView) holder.getView(R.id.iv_type);
             if(KEY_VIDEO.equals(collectionInfo.getType())) {
+                ivType.setImageResource(R.drawable.adapter_collection_card_view_list_item_video);
                 cardView.setCardBackgroundColor(holder.getContext().getResources().getColor(R.color.xui_btn_green_normal_color, null));
             } else if(KEY_PPT.equals(collectionInfo.getType())) {
-                cardView.setCardBackgroundColor(holder.getContext().getResources().getColor(R.color.xui_config_color_red, null));
+                ivType.setImageResource(R.drawable.adapter_collection_card_view_list_item_ppt);
+                cardView.setCardBackgroundColor(holder.getContext().getResources().getColor(R.color.xui_config_color_gray_9, null));
             } else {
+                ivType.setImageResource(R.drawable.adapter_collection_card_view_list_item_reading);
                 cardView.setCardBackgroundColor(holder.getContext().getResources().getColor(R.color.xui_config_color_light_yellow, null));
             }
         }

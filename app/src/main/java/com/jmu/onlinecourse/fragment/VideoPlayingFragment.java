@@ -38,6 +38,8 @@ import java.util.Objects;
  * @author zjw
  */
 public class VideoPlayingFragment extends Fragment implements View.OnClickListener {
+    private static final String FROM_COLLECTION = "collection";
+
     private View view;
     private Activity mContext;
 
@@ -107,12 +109,16 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
         tvSummary = view.findViewById(R.id.tv_summary);
 
 
-        tvPlayVolume.setText("播放量 " + String.valueOf(db.fetchPlayVolume(currentVideo.getID())));
+        tvPlayVolume.setText("播放量 " + db.fetchPlayVolume(currentVideo.getID()));
         tvLikes.setText(String.valueOf(db.fetchLikes(currentVideo.getID())));
         boolean isInCollection = db2.isInCollection(currentVideo.getID(), "video");
         Log.i("helloChecked", String.valueOf(isInCollection));
         sbCollection.setChecked(isInCollection);
         tvCollection.setText(isInCollection ? "已收藏" : "未收藏");
+        if(FROM_COLLECTION.equals(from)) {
+            sbCollection.setVisibility(View.GONE);
+            tvCollection.setVisibility(View.GONE);
+        }
         tvVideoName.setText(currentVideo.getVideoName());
         tvSummary.setText(currentVideo.getSummary());
         tbTitle.setTitle(currentVideo.getVideoName());
