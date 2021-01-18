@@ -66,8 +66,6 @@ public class CoursewareFragment extends Fragment {
         courseware.setLayoutManager(linearLayoutManager);
         courseware.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         courseware.setAdapter(new CoursewareAdapter(getActivity().getSupportFragmentManager(), coursewareName, coursewareUrl));
-
-
     }
     private void initData(){
         coursewareName.add("第一章 毛泽东思想及其历史地位");

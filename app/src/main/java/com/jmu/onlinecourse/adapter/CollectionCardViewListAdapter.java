@@ -3,6 +3,7 @@ package com.jmu.onlinecourse.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -71,7 +72,7 @@ public class CollectionCardViewListAdapter  extends BaseRecyclerAdapter<Collecti
     public void onItemDelete(int position) {
         Log.i("helloPosition", String.valueOf(position));
         DatabaseCollectionUtil db = new DatabaseCollectionUtil(context);
-        db.delete(collectionInfoList.get(position).getID(), KEY_VIDEO);
+        db.delete(collectionInfoList.get(position).getID(), collectionInfoList.get(position).getType());
         collectionInfoList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());

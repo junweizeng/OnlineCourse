@@ -155,15 +155,20 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
             long position = savedInstanceState.getLong("position");
             player.seekTo(position);
             Configuration cfg = getResources().getConfiguration();
+
             if(cfg.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // 当为横屏状态时，将标题栏和通知栏设置为不可见，并让视频充满整个屏幕，改变放大图标为缩小
                 tbTitle.setVisibility(View.GONE);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                ibFullScreen.setImageResource(R.drawable.exo_controls_fullscreen_exit);
             } else if (cfg.orientation == Configuration.ORIENTATION_PORTRAIT){
+                // 当为竖屏时，则相反
                 tbTitle.setVisibility(View.VISIBLE);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+                ibFullScreen.setImageResource(R.drawable.exo_controls_fullscreen_enter);
             }
         }
     }

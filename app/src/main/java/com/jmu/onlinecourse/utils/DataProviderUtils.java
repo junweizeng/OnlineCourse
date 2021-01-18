@@ -92,6 +92,7 @@ public class DataProviderUtils {
         list.add(videoInfo9);
         list.add(videoInfo10);
         list.add(videoInfo11);
+
         List<String> coursewareName = new ArrayList<>();
         List<String> coursewareUrl = new ArrayList<>();
         coursewareName.add("第一章 毛泽东思想及其历史地位");
@@ -140,11 +141,15 @@ public class DataProviderUtils {
         coursewareUrl.add("https://www.doc88.com/p-67747315485977.html");
         //15
         coursewareUrl.add("https://www.docin.com/p-2387409234.html");
-        setCoursewareInfo(coursewareName, coursewareName);
+        setCoursewareInfo(coursewareName, coursewareUrl);
     }
 
     public static List<VideoInfo> getAllVideoInfo() {
         return list;
+    }
+
+    public static List<Courseware> getCoursewares() {
+        return coursewares;
     }
 
     public static List<VideoInfo> getVideoInfoList(int page) {
