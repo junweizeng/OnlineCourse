@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="term_select_array">
+        <item id="@+id/term_2020_1">2020-2021年 第一学期</item>
+        <item id="@+id/term_2020_2">2020-2021年 第二学期</item>
+        <item id="@+id/term_2021_1">2021-2022年 第一学期</item>
+        <item id="@+id/term_2021_2">2021-2022年 第二学期</item>
+    </string-array>
+</resources>
