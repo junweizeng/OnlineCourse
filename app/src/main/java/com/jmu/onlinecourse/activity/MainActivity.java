@@ -1,27 +1,32 @@
 package com.jmu.onlinecourse.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.navigation.NavigationView;
 import com.jmu.onlinecourse.R;
+import com.jmu.onlinecourse.fragment.CollectionFragment;
 import com.jmu.onlinecourse.fragment.FeedbackFragment;
 import com.jmu.onlinecourse.fragment.IndexFragment;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.thekhaeng.slidingmenu.lib.SlidingMenu;
 
+import java.util.Objects;
+
 /**
  * @author zjw
  */
 public class MainActivity extends AppCompatActivity {
+    private static int isFirst = 0;
 
     private IndexFragment indexFragment;
     private FragmentManager fManager;
@@ -40,13 +45,16 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this,"online_course",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close();
-        init();
+        if(isFirst == 0) {
+            init();
+            isFirst = 1;
+        }
     }
     private void init(){
         indexFragment = new IndexFragment();
         fManager= getSupportFragmentManager();
         fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.page_content,indexFragment);
+        fTransaction.add(R.id.page_content,indexFragment, "index");
         fTransaction.commit();
         // 抽屉菜单操作
         menu = new SlidingMenu(this);
@@ -76,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     // 我的收藏
                     case R.id.my_collection:
+                        menu.toggle();
+                        // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
+                        FragmentManager manager = getSupportFragmentManager();
+                        FragmentTransaction transaction = manager.beginTransaction();
+                        Fragment fragment = manager.findFragmentByTag("index");
+                        transaction.hide(Objects.requireNonNull(fragment));
+                        transaction.add(R.id.page_content, new CollectionFragment(), "collection");
+                        transaction.commit();
                         Toast.makeText(MainActivity.this,"我的收藏",Toast.LENGTH_SHORT).show();
                         break;
                     // 浏览记录
@@ -125,4 +141,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-

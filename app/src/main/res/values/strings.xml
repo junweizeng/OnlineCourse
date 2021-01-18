@@ -9,4 +9,9 @@
     <string name="view_log">浏览记录</string>
     <string name="my_version">版本信息</string>
     <string name="suggestion">意见反馈</string>
+    <string name="onlineTestOption">%1s</string>
+    <string name="onlineTestTitle">%1d:%2s</string>
+    <string name="countdown">剩余时间:%d分%d秒</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
