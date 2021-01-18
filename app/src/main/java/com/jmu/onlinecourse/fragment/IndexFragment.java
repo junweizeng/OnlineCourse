@@ -62,11 +62,15 @@ public class IndexFragment extends Fragment {
         fragments.add(new TeachPlansFragment());
 
         fragments.add(CoursewareFragment.newInstance());
-
+        fragments.add(new TeachingVideoFragment());
         fragments.add(OnlineTestIndexFragment.newInstance());
+        fragments.add(new CollectionFragment());
+
         /**
          * 待添加其它页面
          */
+
+
         myViewManager = getChildFragmentManager();
         // 底部导航栏操作
         bottomMainFragment = new BottomMainFragment();
@@ -76,7 +80,7 @@ public class IndexFragment extends Fragment {
     }
     private void initView(){
         fTransaction = BottomManager.beginTransaction();
-        fTransaction.add(R.id.bottom_main_layout,bottomMainFragment);
+        fTransaction.add(R.id.bottom_main_layout, bottomMainFragment);
         fTransaction.commit();
         myViewPager.setAdapter(new MyPagerAdapter(myViewManager, fragments));
         // 设置当前页面

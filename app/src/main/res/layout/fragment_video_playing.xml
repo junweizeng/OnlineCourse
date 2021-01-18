@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragment.VideoPlayingFragment">
+
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+    android:id="@+id/tb_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:controller_layout_id="@layout/my_exo_player_control_view"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/xui_config_color_gray_9" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="简介"
+                android:textSize="20sp"
+                android:textColor="@color/xui_config_color_middle_blue_gray" />
+
+            <TextView
+                android:id="@+id/tv_play_volume"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="播放量 123"
+                android:textSize="12sp"
+                android:textColor="@color/xui_config_color_middle_blue_gray" />
+
+        </FrameLayout>
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.xuexiang.xui.widget.button.shinebutton.ShineButton
+                    android:id="@+id/sb_likes"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    app:sb_icon_image="@drawable/adapter_video_card_view_list_item_likes"
+                    app:sb_normal_color="@color/xui_config_color_red"
+                    app:sb_checked_color="@color/xui_config_color_red" />
+
+                <TextView
+                    android:id="@+id/tv_likes"
+                    style="@style/TextStyle.Explain"
+                    android:layout_marginStart="5dp"
+                    android:text="点赞" />
+
+                <com.xuexiang.xui.widget.button.shinebutton.ShineButton
+                    android:id="@+id/sb_collection"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="15dp"
+                    app:sb_icon_image="@drawable/adapter_video_card_view_list_item_collection"
+                    app:sb_normal_color="@color/xui_config_color_explain_text"
+                    app:sb_checked_color="@color/xui_config_color_waring" />
+
+                <TextView
+                    android:id="@+id/tv_collection"
+                    style="@style/TextStyle.Explain"
+                    android:layout_marginStart="5dp"
+                    android:text="收藏" />
+
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_video_name"
+            style="@style/TextStyle.Content"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="《永远的小平》"
+            android:textColor="@color/xui_config_color_pure_black" />
+
+        <TextView
+            android:id="@+id/tv_summary"
+            style="@style/TextStyle.Explain"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:singleLine="false"
+            android:text="    电视专题片《永远的小平》由凤凰卫视摄制，以邓小平的家人、身边工作人员作为主要的采访对象，其夫人、儿女、妹妹等面对镜头，讲述了他们心目中的邓小平。其中，邓小平与夫人卓琳心心相映、患难与共、相伴走过58个风云多变的春夏秋冬的故事尤为感人。"
+            android:textColor="?attr/xui_config_color_content_text" />
+    </LinearLayout>
+
+</LinearLayout>

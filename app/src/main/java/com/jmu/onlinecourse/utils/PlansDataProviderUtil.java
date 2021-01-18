@@ -2,9 +2,6 @@ package com.jmu.onlinecourse.utils;
 
 import com.jmu.onlinecourse.entity.TeachPlan;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author ywww
  * @date 2021-01-17 15:54
