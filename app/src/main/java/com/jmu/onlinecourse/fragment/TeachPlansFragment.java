@@ -1,6 +1,7 @@
 package com.jmu.onlinecourse.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.util.List;
  * @date 2021-01-17 2:08
  */
 public class TeachPlansFragment extends Fragment {
-    private View view;
+    private View view = null;
     private GridLayout gridLayout;
     private DatabasePlansUtil plansUtil;
     private List<TeachPlan> teachPlans;
@@ -34,15 +35,19 @@ public class TeachPlansFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_teach_plans,null);
-        gridLayout = view.findViewById(R.id.plans_gridLayout);
-        termSelectSpinner = view.findViewById(R.id.term_select_banner);
-        plansUtil = new DatabasePlansUtil(getContext());
-        plansUtil.open();
-        teachPlans = plansUtil.fetchPlansByYearAndTerm(2020,1);
-        plansUtil.close();
-        initPlansView();
-        initListener();
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_teach_plans,null);
+            gridLayout = view.findViewById(R.id.plans_gridLayout);
+            termSelectSpinner = view.findViewById(R.id.term_select_banner);
+            plansUtil = new DatabasePlansUtil(getContext());
+            plansUtil.open();
+            teachPlans = plansUtil.fetchPlansByYearAndTerm(2020,1);
+            plansUtil.close();
+            initPlansView();
+            initListener();
+        }
+        // 解决使用replace产生重叠问题
+        container.removeView(view);
         return view;
     }
 
@@ -61,7 +66,11 @@ public class TeachPlansFragment extends Fragment {
                 textView.setText(viewTests.get(j));
                 textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 // 设置宽度为屏幕的1/3
-                textView.setWidth(getResources().getDisplayMetrics().widthPixels/3);
+                if(j != 2){
+                    textView.setWidth(getResources().getDisplayMetrics().widthPixels*2/5);
+                } else {
+                    textView.setWidth(getResources().getDisplayMetrics().widthPixels/5);
+                }
                 textView.setHeight(getResources().getDimensionPixelSize(R.dimen.plan_item_height));
                 // 参数1为起始位置，参数2为占位数
                 GridLayout.Spec columnSpec = GridLayout.spec(j,1);

@@ -1,6 +1,7 @@
 package com.jmu.onlinecourse.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  * @date 2021-01-18 13:33
  */
 public class IndexFragment extends Fragment {
-    private View view;
+    private View view = null;
     private MainActivity mainActivity;
     private BottomMainFragment bottomMainFragment;
     private TextView pageTitle;
@@ -48,9 +49,11 @@ public class IndexFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_index,null);
-        mainActivity = (MainActivity) getActivity();
-        init();
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_index,null);
+            mainActivity = (MainActivity) getActivity();
+            init();
+        }
         return view;
     }
     private void init(){
