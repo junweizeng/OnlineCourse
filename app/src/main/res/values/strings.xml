@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Online Course</string>
+    <string name="teach_plans">教学计划</string>
+    <string name="course_ware">专题课件</string>
+    <string name="teach_videos">教学视频</string>
+    <string name="online_testing">在线测试</string>
+    <string name="classic_reading">经典阅读</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="view_log">浏览记录</string>
+    <string name="my_version">版本信息</string>
+    <string name="suggestion">意见反馈</string>
 </resources>

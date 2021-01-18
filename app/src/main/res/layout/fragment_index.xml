@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:contentInsetStart="0dp"
+            android:background="@color/paleBlue">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/show_drawer_button"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/yw_menu_logo"/>
+                <TextView
+                    android:id="@+id/index_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/teach_plans"
+                    android:textSize="20dp"/>
+            </FrameLayout>
+        </androidx.appcompat.widget.Toolbar>
+        <!-- 中间内容 -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/index_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!-- 分割线-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/thin_border"/>
+        <!-- 底部导航 -->
+        <FrameLayout
+            android:id="@+id/bottom_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"/>
+    </LinearLayout>
+</LinearLayout>

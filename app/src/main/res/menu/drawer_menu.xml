@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/my_message"
+            android:title="我的">
+            <menu>
+                <item android:id="@+id/my_collection"
+                    android:icon="@drawable/yw_star_icon"
+                    android:title="@string/my_collection"/>
+                <item android:id="@+id/view_log"
+                    android:icon="@drawable/yw_browser_icon"
+                    android:title="@string/view_log"/>
+            </menu>
+        </item>
+    </group>
+    <group  android:checkableBehavior="single">
+        <item android:id="@+id/other_message"
+            android:title="其它">
+            <menu>
+                <item android:id="@+id/my_version"
+                    android:icon="@drawable/yw_about_icon"
+                    android:title="@string/my_version"/>
+                <item android:id="@+id/suggestion_write"
+                    android:icon="@drawable/yw_suggestion_icon"
+                    android:title="@string/suggestion"/>
+            </menu>
+        </item>
+    </group>
+</menu>
