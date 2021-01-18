@@ -46,16 +46,19 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close();
         if(isFirst == 0) {
-            init();
-            isFirst = 1;
+            indexFragment = new IndexFragment();
+            fManager= getSupportFragmentManager();
+            fTransaction = fManager.beginTransaction();
+            fTransaction.add(R.id.page_content,indexFragment, "index");
+            fTransaction.commit();
+            isFirst++;
         }
+        init();
     }
+
+
+
     private void init(){
-        indexFragment = new IndexFragment();
-        fManager= getSupportFragmentManager();
-        fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.page_content,indexFragment, "index");
-        fTransaction.commit();
         // 抽屉菜单操作
         menu = new SlidingMenu(this);
         // 设置为左边划出

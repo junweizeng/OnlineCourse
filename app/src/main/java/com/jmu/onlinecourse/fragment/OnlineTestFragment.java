@@ -134,6 +134,7 @@ public class OnlineTestFragment extends Fragment {
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                timer.cancel();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
                 OnlineTestFragment fragment = (OnlineTestFragment) fragmentManager.findFragmentByTag("otf");

@@ -63,7 +63,6 @@ public class IndexFragment extends Fragment {
         // viewPager操作
         myViewPager = view.findViewById(R.id.index_view_pager);
         fragments.add(new TeachPlansFragment());
-
         fragments.add(CoursewareFragment.newInstance());
         fragments.add(new TeachingVideoFragment());
         fragments.add(OnlineTestIndexFragment.newInstance());

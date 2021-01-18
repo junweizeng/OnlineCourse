@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.OnlineTestResultFragment">
     <com.xuexiang.xui.widget.actionbar.TitleBar
@@ -18,16 +19,14 @@
         app:tb_sideTextPadding="10dp"
         app:tb_titleTextSize="25sp"
         app:tb_subTitleTextSize="16sp"/>
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:text="您本次的成绩是:"
             android:textSize="30sp"/>
         <TextView
@@ -36,5 +35,14 @@
             android:layout_height="wrap_content"
             android:textSize="30sp"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您本次的错题为:"
+        android:textSize="25sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/errors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</RelativeLayout>
+</LinearLayout>

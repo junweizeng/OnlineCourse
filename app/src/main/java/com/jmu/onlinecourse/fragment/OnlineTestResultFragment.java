@@ -11,8 +11,13 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jmu.onlinecourse.R;
+import com.jmu.onlinecourse.adapter.CoursewareAdapter;
+import com.jmu.onlinecourse.adapter.ErrorAdapter;
 import com.jmu.onlinecourse.entity.Problem;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
@@ -36,6 +41,7 @@ public class OnlineTestResultFragment extends Fragment {
     private List<Problem> correctAnswers;
     private List<String> errors;
     private TitleBar titleBar;
+    private RecyclerView recyclerView;
     public OnlineTestResultFragment() {
         // Required empty public constructor
     }
@@ -89,6 +95,11 @@ public class OnlineTestResultFragment extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().show(indexFragment).commit();
             }
         });
+        recyclerView = view.findViewById(R.id.errors);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         int score = processOption();
         TextView tvScore = view.findViewById(R.id.tv_score);
         tvScore.setText(String.valueOf(score));
@@ -109,6 +120,7 @@ public class OnlineTestResultFragment extends Fragment {
                 errors.add(correctAnswers.get(i).getTitle());
             }
         }
+        recyclerView.setAdapter(new ErrorAdapter(errors));
         return score;
     }
 
