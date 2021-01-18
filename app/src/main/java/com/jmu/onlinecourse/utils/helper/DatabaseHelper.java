@@ -30,6 +30,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "teaching_content TEXT," +
                     "class_hour DOUBLE)";
 
+    private static final String CREATE_FEEDBACK_LOGS_TABLE =
+            "CREATE TABLE feedback_logs (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "date TEXT," +
+                    "content TEXT)";
+
     public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -47,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("class_hour",tp.getClass_hour());
             db.insert("teach_plans",null,contentValues);
         }
+        db.execSQL(CREATE_FEEDBACK_LOGS_TABLE);
     }
 
     @Override
