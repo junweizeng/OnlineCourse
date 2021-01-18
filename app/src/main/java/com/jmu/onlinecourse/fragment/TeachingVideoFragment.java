@@ -77,16 +77,16 @@ public class TeachingVideoFragment extends Fragment {
             VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
             Bundle bundle = new Bundle();
             bundle.putLong("currentVideo", item.getID());
-            bundle.putString("from", "tvf");
+            bundle.putString("from", "index");
             videoPlayingFragment.setArguments(bundle);
 
             // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
             FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
 
-            Fragment fragment = manager.findFragmentByTag("tvf");
+            Fragment fragment = manager.findFragmentByTag("index");
             transaction.hide(Objects.requireNonNull(fragment));
-            transaction.add(R.id.fragment_container, videoPlayingFragment, "vpf");
+            transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
             transaction.commit();
         });
 

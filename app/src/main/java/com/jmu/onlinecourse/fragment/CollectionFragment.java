@@ -25,6 +25,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
+import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 import java.util.Objects;
 
@@ -34,7 +35,7 @@ import java.util.Objects;
  */
 public class CollectionFragment extends Fragment {
     private View view;
-
+    private TitleBar tbReturn;
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView recyclerView;
     private CollectionCardViewListAdapter mAdapter;
@@ -54,6 +55,7 @@ public class CollectionFragment extends Fragment {
     }
 
     private void initViews() {
+        tbReturn = view.findViewById(R.id.tb_return);
         smartRefreshLayout = view.findViewById(R.id.smart_refresh_layout);
         // 设置顶部刷新样式
         smartRefreshLayout.setRefreshHeader(new BezierCircleHeader(getContext()));
@@ -77,6 +79,19 @@ public class CollectionFragment extends Fragment {
     }
 
     private void initListens() {
+        tbReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                Fragment fragment = manager.findFragmentByTag("collection");
+                transaction.remove(Objects.requireNonNull(fragment));
+                transaction.show(Objects.requireNonNull(manager.findFragmentByTag("index")));
+                transaction.commit();
+            }
+        });
+
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -95,16 +110,16 @@ public class CollectionFragment extends Fragment {
                     VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
                     Bundle bundle = new Bundle();
                     bundle.putLong("currentVideo", item.getID());
-                    bundle.putString("from", "cf");
+                    bundle.putString("from", "collection");
                     videoPlayingFragment.setArguments(bundle);
 
                     // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
                     FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
 
-                    Fragment fragment = manager.findFragmentByTag("cf");
+                    Fragment fragment = manager.findFragmentByTag("collection");
                     transaction.hide(Objects.requireNonNull(fragment));
-                    transaction.add(R.id.fragment_container, videoPlayingFragment, "vpf");
+                    transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
                     transaction.commit();
                 }
             }

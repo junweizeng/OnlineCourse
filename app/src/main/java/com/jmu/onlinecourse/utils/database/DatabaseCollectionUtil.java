@@ -9,6 +9,7 @@ import com.jmu.onlinecourse.entity.CollectionInfo;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -122,6 +123,7 @@ public class DatabaseCollectionUtil {
         }
         mCursor.close();
         close();
+        Collections.reverse(result);
         return result;
     }
 
