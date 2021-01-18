@@ -10,8 +10,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.jmu.onlinecourse.activity.MainActivity;
+import com.jmu.onlinecourse.entity.Problem;
 import com.jmu.onlinecourse.entity.TeachPlan;
 import com.jmu.onlinecourse.utils.PlansDataProviderUtil;
+import com.jmu.onlinecourse.utils.database.ProblemInsertUtil;
+
+import java.util.List;
 
 /**
  * @author ywww
@@ -29,9 +33,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "date TEXT,"+
                     "teaching_content TEXT," +
                     "class_hour DOUBLE)";
-
+    private Context context;
+    public static final String PROBLEM = "CREATE TABLE problem(id integer primary key autoincrement," +
+            "  title text," +
+            "  option_a text," +
+            "  option_b text," +
+            "  option_c text," +
+            "  option_d text," +
+            "  examination integer," +
+            "  answer text)";
+    public static final String SCORE = "CREATE TABLE score(id integer primary key autoincrement," +
+            "  score integer)";
     public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     @Override
@@ -47,6 +62,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("class_hour",tp.getClass_hour());
             db.insert("teach_plans",null,contentValues);
         }
+        //创建problem表sql语句
+        db.execSQL(PROBLEM);
+        //从txt文件获取数据
+        List<Problem> problems = ProblemInsertUtil.getDataFromTxt(context);
+        //将数据插入到数据库
+        ProblemInsertUtil.insertDataIntoProblem(db, problems);
+        db.execSQL(SCORE);
     }
 
     @Override

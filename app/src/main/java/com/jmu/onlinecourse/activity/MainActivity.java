@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         indexFragment = new IndexFragment();
         fManager= getSupportFragmentManager();
         fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.page_content,indexFragment);
+        fTransaction.add(R.id.page_content,indexFragment, "index");
         fTransaction.commit();
         // 抽屉菜单操作
         menu = new SlidingMenu(this);
