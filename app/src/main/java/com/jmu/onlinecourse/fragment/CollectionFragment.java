@@ -132,7 +132,7 @@ public class CollectionFragment extends Fragment {
                     Fragment fragment = manager.findFragmentByTag("collection");
                     transaction.hide(Objects.requireNonNull(fragment));
                     transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
-                    transaction.commit();
+                    transaction.addToBackStack(null).commit();
                 } else if(item.getType().equals(KEY_PPT)) {
                     Log.i("myUrl", DataProviderUtils.getCoursewares().get((int) item.getID()).getUrl());
                     Objects.requireNonNull(getActivity()).getSupportFragmentManager()

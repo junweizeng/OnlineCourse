@@ -202,7 +202,6 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
                 // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
                 FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-
                 Fragment fragment = manager.findFragmentByTag("videoPlaying");
                 transaction.remove(Objects.requireNonNull(fragment));
                 fragment = manager.findFragmentByTag(from);
