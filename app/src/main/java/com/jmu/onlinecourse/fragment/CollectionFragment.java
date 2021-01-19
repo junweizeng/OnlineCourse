@@ -49,6 +49,8 @@ public class CollectionFragment extends Fragment {
     private static final String KEY_VIDEO = "video";
     private static final String KEY_PPT = "ppt";
 
+    private VideoPlayingFragment videoPlayingFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,7 +120,7 @@ public class CollectionFragment extends Fragment {
             public void onItemClick(View itemView, CollectionInfo item, int position) {
                 if(item.getType().equals(KEY_VIDEO)) {
                     Log.i("helloOnItemClick", "hello");
-                    VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
+                    videoPlayingFragment = new VideoPlayingFragment();
                     DatabaseVideoUtil db = new DatabaseVideoUtil(getActivity());
                     db.increasePlayVolume(item.getID());
                     Bundle bundle = new Bundle();
@@ -169,6 +171,10 @@ public class CollectionFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public VideoPlayingFragment getVideoPlayingFragment(){
+        return videoPlayingFragment;
     }
 
 }

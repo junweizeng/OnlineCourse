@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private NavigationView navigationView;
     private SlidingMenu menu;
+    private CollectionFragment collectionFragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
                     // 我的收藏
                     case R.id.my_collection:
                         menu.toggle();
+                        collectionFragment = new CollectionFragment();
                         // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
                         Fragment fragment = fManager.findFragmentByTag("index");
                         fTransaction = fManager.beginTransaction();
                         fTransaction.hide(Objects.requireNonNull(fragment));
-                        fTransaction.add(R.id.page_content, new CollectionFragment(), "collection").addToBackStack(null);
+                        fTransaction.add(R.id.page_content,collectionFragment , "collection").addToBackStack(null);
                         fTransaction.commit();
                         Toast.makeText(MainActivity.this,"我的收藏",Toast.LENGTH_SHORT).show();
                         break;
@@ -146,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
     public FragmentManager getFManager(){
         return fManager;
+    }
+
+    public CollectionFragment getCollectionFragment(){
+        return collectionFragment;
     }
 
 }

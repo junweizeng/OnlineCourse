@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -159,5 +160,26 @@ public class IndexFragment extends Fragment {
 
     public ViewPager getMyViewPager(){
         return myViewPager;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d("TAG","this");
+        if(hidden == false) {
+            Log.d("TAG","this");
+            TeachingVideoFragment teachingVideoFragment1 = (TeachingVideoFragment) fragments.get(2);
+            VideoPlayingFragment videoPlayingFragment1 = (VideoPlayingFragment) teachingVideoFragment1.getVideoPlayingFragment();
+            if (videoPlayingFragment1 != null) {
+                Log.d("TAG","this");
+                videoPlayingFragment1.onDestroy();
+            }
+            if(mainActivity.getCollectionFragment() != null){
+                VideoPlayingFragment videoPlayingFragment2 = mainActivity.getCollectionFragment().getVideoPlayingFragment();
+                if(videoPlayingFragment2 != null){
+                    videoPlayingFragment2.onDestroy();
+                }
+            }
+        }
     }
 }

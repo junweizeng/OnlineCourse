@@ -88,7 +88,7 @@ public class TeachingVideoFragment extends Fragment {
             Fragment fragment = manager.findFragmentByTag("index");
             transaction.hide(Objects.requireNonNull(fragment));
             transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
-            transaction.commit();
+            transaction.addToBackStack(null).commit();
         });
 
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -133,13 +133,7 @@ public class TeachingVideoFragment extends Fragment {
         super.onDestroyView();
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(hidden == false) {
-            if (videoPlayingFragment != null) {
-                videoPlayingFragment.onDestroy();
-            }
-        }
+    public Fragment getVideoPlayingFragment(){
+        return videoPlayingFragment;
     }
 }

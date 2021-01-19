@@ -203,6 +203,7 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
                 FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 Fragment fragment = manager.findFragmentByTag("videoPlaying");
+                Objects.requireNonNull(fragment).onDestroy();
                 transaction.remove(Objects.requireNonNull(fragment));
                 fragment = manager.findFragmentByTag(from);
                 transaction.show(Objects.requireNonNull(fragment));
