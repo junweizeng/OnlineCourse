@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.SurfaceControl;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,18 +48,19 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this,"online_course",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close();
+        fManager= getSupportFragmentManager();
+
         if(isFirst == 0) {
             indexFragment = new IndexFragment();
-            fManager= getSupportFragmentManager();
             fTransaction = fManager.beginTransaction();
-            fTransaction.add(R.id.page_content,indexFragment, "index");
+            fTransaction.add(R.id.page_content, indexFragment, "index");
             fTransaction.commit();
             isFirst++;
+        } else {
+            indexFragment = (IndexFragment) fManager.findFragmentByTag("index");
         }
         init();
     }
-
-
 
     private void init(){
         // 抽屉菜单操作

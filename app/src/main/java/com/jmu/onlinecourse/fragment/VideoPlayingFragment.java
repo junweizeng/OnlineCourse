@@ -79,19 +79,20 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
             currentVideo = db.fetchVideoInfoById(id);
             from = bundle.getString("from");
         }
+        view = inflater.inflate(R.layout.fragment_video_playing, container, false);
+        initViews();
+        initListens();
 
-        if(view == null) {
-            view = inflater.inflate(R.layout.fragment_video_playing, container, false);
-            initViews();
-            initListens();
-        }
         return view;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        player.release();
+        if(player != null) {
+            player.release();
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -146,9 +147,11 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.i("testing", "onSaveInstanceState...");
+//        Log.i("testingSave", "onSaveInstanceState..." + player.getCurrentPosition());
         super.onSaveInstanceState(outState);
-        outState.putLong("position", player.getCurrentPosition());
+        if(player != null) {
+            outState.putLong("position", player.getCurrentPosition());
+        }
     }
 
     /**
@@ -184,16 +187,16 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Configuration cfg = getResources().getConfiguration();
-        if ( cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
-            mContext.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
-        }else {
-            mContext.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
-        }
-    }
+//    @Override
+//    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        Configuration cfg = getResources().getConfiguration();
+//        if ( cfg.orientation == Configuration.ORIENTATION_LANDSCAPE ){
+//            mContext.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
+//        }else {
+//            mContext.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
