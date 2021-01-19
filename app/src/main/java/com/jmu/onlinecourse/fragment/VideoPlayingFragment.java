@@ -140,6 +140,10 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
         ibFullScreen.setOnClickListener(this);
     }
 
+    /**
+     * 当屏幕切换时，界面会进行重载，在onSaveInstanceState这个生命周期中保存现场，将当前视频播放进度保存下来
+     * @param outState 当前现场的数据
+     */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         Log.i("testing", "onSaveInstanceState...");
@@ -147,6 +151,13 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
         outState.putLong("position", player.getCurrentPosition());
     }
 
+    /**
+     * 恢复现场，取出刚刚保存的视频进度，将视频播放进度重新定位到播放位置；
+     * 判断横竖屏，如果此时状态为横屏，则表示视频全屏播放，将标题栏和通知
+     * 栏设置为不可见，并让整个视频充满屏幕，改变放大图标为缩小图标；
+     * 如果竖屏则反之。
+     * @param savedInstanceState
+     */
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
