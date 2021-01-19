@@ -66,7 +66,7 @@ public class IndexFragment extends Fragment {
         fragments.add(CoursewareFragment.newInstance());
         fragments.add(new TeachingVideoFragment());
         fragments.add(OnlineTestIndexFragment.newInstance());
-        fragments.add(new CollectionFragment());
+        fragments.add(new TextFragment());
 
         /**
          * 待添加其它页面
