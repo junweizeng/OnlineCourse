@@ -86,7 +86,7 @@ public class TeachingVideoFragment extends Fragment {
 
             Fragment fragment = manager.findFragmentByTag("index");
             transaction.hide(Objects.requireNonNull(fragment));
-            transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
+            transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying").addToBackStack(null);
             transaction.commit();
         });
 

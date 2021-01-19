@@ -206,7 +206,7 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
                 Fragment fragment = manager.findFragmentByTag("videoPlaying");
                 transaction.remove(Objects.requireNonNull(fragment));
                 fragment = manager.findFragmentByTag(from);
-                transaction.show(Objects.requireNonNull(fragment));
+                transaction.show(Objects.requireNonNull(fragment)).addToBackStack(null);
                 transaction.commit();
                 break;
             case R.id.sb_likes:

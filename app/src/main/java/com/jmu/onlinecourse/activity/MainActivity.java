@@ -17,6 +17,7 @@ import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.fragment.CollectionFragment;
 import com.jmu.onlinecourse.fragment.FeedbackFragment;
 import com.jmu.onlinecourse.fragment.IndexFragment;
+import com.jmu.onlinecourse.fragment.VersionFragment;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.thekhaeng.slidingmenu.lib.SlidingMenu;
 
@@ -89,12 +90,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.my_collection:
                         menu.toggle();
                         // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
-                        FragmentManager manager = getSupportFragmentManager();
-                        FragmentTransaction transaction = manager.beginTransaction();
-                        Fragment fragment = manager.findFragmentByTag("index");
-                        transaction.hide(Objects.requireNonNull(fragment));
-                        transaction.add(R.id.page_content, new CollectionFragment(), "collection");
-                        transaction.commit();
+                        Fragment fragment = fManager.findFragmentByTag("index");
+                        fTransaction = fManager.beginTransaction();
+                        fTransaction.hide(Objects.requireNonNull(fragment));
+                        fTransaction.add(R.id.page_content, new CollectionFragment(), "collection").addToBackStack(null);
+                        fTransaction.commit();
                         Toast.makeText(MainActivity.this,"我的收藏",Toast.LENGTH_SHORT).show();
                         break;
                     // 浏览记录
@@ -103,7 +103,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     // 版本信息
                     case R.id.my_version:
-
+                        menu.toggle();
+                        Fragment fragment1 = fManager.findFragmentByTag("index");
+                        fTransaction = fManager.beginTransaction();
+                        fTransaction.hide(Objects.requireNonNull(fragment1));
+                        fTransaction.add(R.id.page_content, new VersionFragment(), "version").addToBackStack(null);
+                        fTransaction.commit();
                         break;
                     // 意见反馈
                     case R.id.suggestion_write:
