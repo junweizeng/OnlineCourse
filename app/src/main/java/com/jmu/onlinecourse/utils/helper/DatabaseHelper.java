@@ -63,6 +63,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "date TEXT,"+
                     "teaching_content TEXT," +
                     "class_hour DOUBLE)";
+
+    private static final String CREATE_FEEDBACK_LOGS_TABLE =
+            "CREATE TABLE feedback_logs (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "date TEXT," +
+                    "content TEXT)";
+
     private Context context;
     public static final String PROBLEM = "CREATE TABLE problem(id integer primary key autoincrement," +
             "  title text," +
@@ -103,6 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("class_hour", tp.getClass_hour());
             db.insert("teach_plans", null, contentValues);
         }
+        db.execSQL(CREATE_FEEDBACK_LOGS_TABLE);
         //创建problem表sql语句
         db.execSQL(PROBLEM);
         //从txt文件获取数据

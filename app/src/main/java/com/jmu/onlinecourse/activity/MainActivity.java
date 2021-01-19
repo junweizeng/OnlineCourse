@@ -2,6 +2,7 @@ package com.jmu.onlinecourse.activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.fragment.CollectionFragment;
+import com.jmu.onlinecourse.fragment.FeedbackFragment;
 import com.jmu.onlinecourse.fragment.IndexFragment;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.thekhaeng.slidingmenu.lib.SlidingMenu;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private IndexFragment indexFragment;
     private FragmentManager fManager;
     private FragmentTransaction fTransaction;
+    private FeedbackFragment feedbackFragment;
     /**
      * 抽屉菜单
      */
@@ -43,16 +46,19 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close();
         if(isFirst == 0) {
-            init();
-            isFirst = 1;
+            indexFragment = new IndexFragment();
+            fManager= getSupportFragmentManager();
+            fTransaction = fManager.beginTransaction();
+            fTransaction.add(R.id.page_content,indexFragment, "index");
+            fTransaction.commit();
+            isFirst++;
         }
+        init();
     }
+
+
+
     private void init(){
-        indexFragment = new IndexFragment();
-        fManager= getSupportFragmentManager();
-        fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.page_content,indexFragment, "index");
-        fTransaction.commit();
         // 抽屉菜单操作
         menu = new SlidingMenu(this);
         // 设置为左边划出
@@ -101,7 +107,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     // 意见反馈
                     case R.id.suggestion_write:
-
+                        fTransaction = fManager.beginTransaction();
+                        fTransaction.hide(indexFragment);
+                        if(feedbackFragment == null || fManager.findFragmentByTag("feedback") == null) {
+                            feedbackFragment = new FeedbackFragment();
+                            fTransaction.add(R.id.page_content,feedbackFragment,"feedback").addToBackStack(null).commit();
+                        } else {
+                            fTransaction.show(feedbackFragment).addToBackStack(null).commit();
+                        }
+                        menu.toggle();
+                        lockDrawerMenu();
                         break;
 
                     default:
@@ -122,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void unlockDrawerMenu(){
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+    }
+
+    public FragmentManager getFManager(){
+        return fManager;
     }
 
 }

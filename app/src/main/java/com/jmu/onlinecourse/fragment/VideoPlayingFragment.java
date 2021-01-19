@@ -38,6 +38,8 @@ import java.util.Objects;
  * @author zjw
  */
 public class VideoPlayingFragment extends Fragment implements View.OnClickListener {
+    private static final String FROM_COLLECTION = "collection";
+
     private View view;
     private Activity mContext;
 
@@ -107,12 +109,16 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
         tvSummary = view.findViewById(R.id.tv_summary);
 
 
-        tvPlayVolume.setText("播放量 " + String.valueOf(db.fetchPlayVolume(currentVideo.getID())));
+        tvPlayVolume.setText("播放量 " + db.fetchPlayVolume(currentVideo.getID()));
         tvLikes.setText(String.valueOf(db.fetchLikes(currentVideo.getID())));
         boolean isInCollection = db2.isInCollection(currentVideo.getID(), "video");
         Log.i("helloChecked", String.valueOf(isInCollection));
         sbCollection.setChecked(isInCollection);
         tvCollection.setText(isInCollection ? "已收藏" : "未收藏");
+        if(FROM_COLLECTION.equals(from)) {
+            sbCollection.setVisibility(View.GONE);
+            tvCollection.setVisibility(View.GONE);
+        }
         tvVideoName.setText(currentVideo.getVideoName());
         tvSummary.setText(currentVideo.getSummary());
         tbTitle.setTitle(currentVideo.getVideoName());
@@ -149,15 +155,20 @@ public class VideoPlayingFragment extends Fragment implements View.OnClickListen
             long position = savedInstanceState.getLong("position");
             player.seekTo(position);
             Configuration cfg = getResources().getConfiguration();
+
             if(cfg.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // 当为横屏状态时，将标题栏和通知栏设置为不可见，并让视频充满整个屏幕，改变放大图标为缩小
                 tbTitle.setVisibility(View.GONE);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                ibFullScreen.setImageResource(R.drawable.exo_controls_fullscreen_exit);
             } else if (cfg.orientation == Configuration.ORIENTATION_PORTRAIT){
+                // 当为竖屏时，则相反
                 tbTitle.setVisibility(View.VISIBLE);
                 mContext.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+                ibFullScreen.setImageResource(R.drawable.exo_controls_fullscreen_enter);
             }
         }
     }

@@ -19,6 +19,7 @@ import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.adapter.CollectionCardViewListAdapter;
 import com.jmu.onlinecourse.adapter.helper.CollectionTouchHelperCallBack;
 import com.jmu.onlinecourse.entity.CollectionInfo;
+import com.jmu.onlinecourse.utils.DataProviderUtils;
 import com.jmu.onlinecourse.utils.database.DatabaseCollectionUtil;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,6 +41,9 @@ public class CollectionFragment extends Fragment {
     private RecyclerView recyclerView;
     private CollectionCardViewListAdapter mAdapter;
     private DatabaseCollectionUtil db;
+
+    private static final String KEY_VIDEO = "video";
+    private static final String KEY_PPT = "ppt";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,7 +109,7 @@ public class CollectionFragment extends Fragment {
         mAdapter.setOnItemClickListener(new RecyclerViewHolder.OnItemClickListener<CollectionInfo>() {
             @Override
             public void onItemClick(View itemView, CollectionInfo item, int position) {
-                if(item.getType().equals("video")) {
+                if(item.getType().equals(KEY_VIDEO)) {
                     Log.i("helloOnItemClick", "hello");
                     VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
                     Bundle bundle = new Bundle();
@@ -116,11 +120,19 @@ public class CollectionFragment extends Fragment {
                     // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
                     FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-
                     Fragment fragment = manager.findFragmentByTag("collection");
                     transaction.hide(Objects.requireNonNull(fragment));
                     transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
                     transaction.commit();
+                } else if(item.getType().equals(KEY_PPT)) {
+                    Log.i("myUrl", DataProviderUtils.getCoursewares().get((int) item.getID()).getUrl());
+                    Objects.requireNonNull(getActivity()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.page_content,
+                                    ShowCoursewareFragment.newInstance(
+                                            DataProviderUtils.getCoursewares()
+                                                    .get((int) item.getID()).getUrl()))
+                            .commit();
                 }
             }
         });

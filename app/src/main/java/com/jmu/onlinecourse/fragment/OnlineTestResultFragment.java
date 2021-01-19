@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.adapter.CoursewareAdapter;
-import com.jmu.onlinecourse.adapter.ErrorAdapter;
+//import com.jmu.onlinecourse.adapter.ErrorAdapter;
 import com.jmu.onlinecourse.entity.Problem;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
@@ -120,7 +120,7 @@ public class OnlineTestResultFragment extends Fragment {
                 errors.add(correctAnswers.get(i).getTitle());
             }
         }
-        recyclerView.setAdapter(new ErrorAdapter(errors));
+//        recyclerView.setAdapter(new ErrorAdapter(errors));
         return score;
     }
 
