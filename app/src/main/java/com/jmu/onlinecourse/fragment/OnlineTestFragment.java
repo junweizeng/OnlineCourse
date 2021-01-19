@@ -240,26 +240,35 @@ public class OnlineTestFragment extends Fragment {
     private void getAnswerAndDisableOthers() {
         String answer = answers.get(pageIndex);
         if(answer == null){
-            optionA.setChecked(false);
-            optionB.setChecked(false);
-            optionC.setChecked(false);
-            optionD.setChecked(false);
+            radioGroup.clearCheck();
         }else {
             switch (answer) {
                 case "A":
-                    System.out.println("A");
+                    System.out.println(pageIndex+":A");
                     optionA.setChecked(true);
+                    optionB.setChecked(false);
+                    optionC.setChecked(false);
+                    optionD.setChecked(false);
                     break;
                 case "B":
-                    System.out.println("B");
+                    System.out.println(pageIndex+":B");
+                    optionA.setChecked(false);
                     optionB.setChecked(true);
+                    optionC.setChecked(false);
+                    optionD.setChecked(false);
                     break;
                 case "C":
-                    System.out.println("C");
+                    System.out.println(pageIndex+":C");
+                    optionA.setChecked(false);
+                    optionB.setChecked(false);
                     optionC.setChecked(true);
+                    optionD.setChecked(false);
                     break;
                 case "D":
-                    System.out.println("D");
+                    System.out.println(pageIndex+":D");
+                    optionA.setChecked(false);
+                    optionB.setChecked(false);
+                    optionC.setChecked(false);
                     optionD.setChecked(true);
                     break;
                 default:
