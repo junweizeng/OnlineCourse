@@ -28,6 +28,7 @@ public class ReadFragment extends Fragment {
     TextView textView;
     Button button1;
     Button button2;
+    String from;
 
     @Nullable
     @Override
@@ -37,45 +38,29 @@ public class ReadFragment extends Fragment {
         textView=view.findViewById(R.id.fg_read);
         button1=view.findViewById(R.id.button_1);
         button2=view.findViewById(R.id.button_2);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "返回", Toast.LENGTH_SHORT).show();
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                ReadFragment fragment = (ReadFragment) fragmentManager.findFragmentByTag("rf");
-                IndexFragment indexFragment = (IndexFragment) fragmentManager.findFragmentByTag("index");
-                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).show(indexFragment).commit();;
-         //       getActivity().getSupportFragmentManager().beginTransaction().show(indexFragment).commit();
-            }
-        });
-/**
- * 获取文本内容
- */
-        int pama=getArguments().getInt("para");
-        String name=getArguments().getString("name");
+        /**
+         * 获取文本内容
+         */
+        int pama = getArguments().getInt("para");
+        String name = getArguments().getString("name");
+        from = getArguments().getString("from");
         Log.i("helloPama", String.valueOf(pama) + "    " + name);
 
-        List<TextInfo> data=new ArrayList<TextInfo>();
+        List<TextInfo> data = new ArrayList<TextInfo>();
 
         try {
-            data=new TextProviderUtil().provide();//数据提供初始化
+            //数据提供初始化
+            data = new TextProviderUtil().provide();
         } catch (IOException e) {
             e.printStackTrace();
         }
         String content=data.get(pama).getTextContent();
-        int num=content.length()/15;
-
-
-//        System.out.println(num);
-//        System.out.println(content);
-
+        int num = content.length() / 15;
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "收藏", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "收藏", Toast.LENGTH_SHORT).show();
                 DatabaseCollectionUtil databaseCollectionUtil=new DatabaseCollectionUtil(getActivity());
                 if(!databaseCollectionUtil.isInCollection(pama,"reading")){
                     databaseCollectionUtil.insert(pama,name,"reading");
@@ -84,19 +69,31 @@ public class ReadFragment extends Fragment {
             }
         });
         TextProviderUtil dataProviderUtil=new TextProviderUtil();
-       String s;
-       if(pama==0)
-       {
-         s=dataProviderUtil.readText(R.raw.text1);
-       }else if(pama==1){
-            s=dataProviderUtil.readText(R.raw.text2);
-       }else if (pama==2)
-       {
-            s=dataProviderUtil.readText(R.raw.text3);
-       }else {
-            s=dataProviderUtil.readText(R.raw.text4);
-       }
+        String s;
+        if(pama==0) {
+           s=dataProviderUtil.readText(R.raw.text1);
+        } else if(pama==1){
+           s=dataProviderUtil.readText(R.raw.text2);
+        } else if (pama==2) {
+           s=dataProviderUtil.readText(R.raw.text3);
+        }else {
+           s=dataProviderUtil.readText(R.raw.text4);
+        }
         textView.setText(s);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "返回", Toast.LENGTH_SHORT).show();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                Fragment fragment = fragmentManager.findFragmentByTag("rf");
+                Fragment fragment1 = fragmentManager.findFragmentByTag(from);
+                fragmentManager.beginTransaction().remove(fragment).show(fragment1).commit();;
+            }
+        });
+
         return view;
     }
 

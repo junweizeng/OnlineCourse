@@ -19,7 +19,9 @@ import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.adapter.CollectionCardViewListAdapter;
 import com.jmu.onlinecourse.adapter.helper.CollectionTouchHelperCallBack;
 import com.jmu.onlinecourse.entity.CollectionInfo;
+import com.jmu.onlinecourse.entity.TextInfo;
 import com.jmu.onlinecourse.utils.DataProviderUtils;
+import com.jmu.onlinecourse.utils.TextProviderUtil;
 import com.jmu.onlinecourse.utils.database.DatabaseCollectionUtil;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -28,6 +30,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -52,10 +55,14 @@ public class CollectionFragment extends Fragment {
         if(view == null) {
             view = inflater.inflate(R.layout.fragment_collection, container, false);
         }
+        init();
 
+        return view;
+    }
+
+    private void init() {
         initViews();
         initListens();
-        return view;
     }
 
     private void initViews() {
@@ -88,7 +95,6 @@ public class CollectionFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-
                 Fragment fragment = manager.findFragmentByTag("collection");
                 transaction.remove(Objects.requireNonNull(fragment));
                 transaction.show(Objects.requireNonNull(manager.findFragmentByTag("index")));
@@ -133,6 +139,29 @@ public class CollectionFragment extends Fragment {
                                             DataProviderUtils.getCoursewares()
                                                     .get((int) item.getID()).getUrl()))
                             .commit();
+                } else {
+                    ReadFragment readFragment = new ReadFragment();
+                    Bundle bundle = new Bundle();
+                    TextProviderUtil textProviderUtil = new TextProviderUtil();
+                    TextInfo textInfo = null;
+                    try {
+                        textInfo = textProviderUtil.provide().get((int) item.getID());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putLong("pama", textInfo.getTextId());
+                    bundle.putString("name", textInfo.getTextName());
+                    bundle.putString("content", textInfo.getTextContent());
+                    bundle.putString("from", "collection");
+                    readFragment.setArguments(bundle);
+                    // 获取FragmentManager，开启一个事务，隐藏当前Fragment，向容器中添加Fragment，提交事务
+                    FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    Fragment fragment = manager.findFragmentByTag("collection");
+                    transaction.hide(Objects.requireNonNull(fragment));
+                    transaction.add(R.id.page_content, readFragment, "rf");
+                    transaction.commit();
                 }
             }
         });
