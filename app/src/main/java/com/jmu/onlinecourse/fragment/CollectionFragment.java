@@ -23,6 +23,7 @@ import com.jmu.onlinecourse.entity.TextInfo;
 import com.jmu.onlinecourse.utils.DataProviderUtils;
 import com.jmu.onlinecourse.utils.TextProviderUtil;
 import com.jmu.onlinecourse.utils.database.DatabaseCollectionUtil;
+import com.jmu.onlinecourse.utils.database.DatabaseVideoUtil;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -118,6 +119,8 @@ public class CollectionFragment extends Fragment {
                 if(item.getType().equals(KEY_VIDEO)) {
                     Log.i("helloOnItemClick", "hello");
                     VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
+                    DatabaseVideoUtil db = new DatabaseVideoUtil(getActivity());
+                    db.increasePlayVolume(item.getID());
                     Bundle bundle = new Bundle();
                     bundle.putLong("currentVideo", item.getID());
                     bundle.putString("from", "collection");
@@ -138,6 +141,7 @@ public class CollectionFragment extends Fragment {
                                     ShowCoursewareFragment.newInstance(
                                             DataProviderUtils.getCoursewares()
                                                     .get((int) item.getID()).getUrl()))
+                            .addToBackStack(null)
                             .commit();
                 } else {
                     ReadFragment readFragment = new ReadFragment();
@@ -160,7 +164,7 @@ public class CollectionFragment extends Fragment {
                     FragmentTransaction transaction = manager.beginTransaction();
                     Fragment fragment = manager.findFragmentByTag("collection");
                     transaction.hide(Objects.requireNonNull(fragment));
-                    transaction.add(R.id.page_content, readFragment, "rf");
+                    transaction.add(R.id.page_content, readFragment, "rf").addToBackStack(null);
                     transaction.commit();
                 }
             }
