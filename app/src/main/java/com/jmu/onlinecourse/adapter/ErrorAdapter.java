@@ -21,13 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 14548
+ * @author czc
  */
 public class ErrorAdapter extends RecyclerView.Adapter<ErrorAdapter.ErrorHolder> {
     List<String> errorTitles = new ArrayList<>();
-
-    public ErrorAdapter(List<String> errorTitles) {
+    List<String> corretcOption = new ArrayList<>();
+    public ErrorAdapter(List<String> errorTitles, List<String> corretcOption) {
         this.errorTitles = errorTitles;
+        this.corretcOption = corretcOption;
     }
 
     @NonNull
@@ -41,6 +42,7 @@ public class ErrorAdapter extends RecyclerView.Adapter<ErrorAdapter.ErrorHolder>
     @Override
     public void onBindViewHolder(@NonNull ErrorHolder holder, int position) {
         holder.errorTitle.setText(errorTitles.get(position));
+        holder.option.setText(corretcOption.get(position));
     }
 
 
@@ -52,8 +54,10 @@ public class ErrorAdapter extends RecyclerView.Adapter<ErrorAdapter.ErrorHolder>
 
     class ErrorHolder extends RecyclerView.ViewHolder{
         TextView errorTitle;
+        TextView option;
         public ErrorHolder(@NonNull View itemView) {
             super(itemView);
+            option  = itemView.findViewById(R.id.tv_error_option);
             errorTitle = itemView.findViewById(R.id.tv_error_title);
         }
     }

@@ -115,4 +115,22 @@ public class CoursewareFragment extends Fragment {
         //15
         coursewareUrl.add("https://www.docin.com/p-2387409234.html");
     }
+
+    @Override
+    public void onPause() {
+        System.out.println("onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        System.out.println("onStop");
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        System.out.println("onResume");
+        super.onResume();
+    }
 }

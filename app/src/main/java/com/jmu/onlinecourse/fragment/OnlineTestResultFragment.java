@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jmu.onlinecourse.R;
 import com.jmu.onlinecourse.adapter.CoursewareAdapter;
 //import com.jmu.onlinecourse.adapter.ErrorAdapter;
+import com.jmu.onlinecourse.adapter.ErrorAdapter;
 import com.jmu.onlinecourse.entity.Problem;
 import com.jmu.onlinecourse.utils.helper.DatabaseHelper;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
@@ -39,6 +40,7 @@ public class OnlineTestResultFragment extends Fragment {
     private static final int MAX = 10;
     private List<String> userAnswers;
     private List<Problem> correctAnswers;
+    private List<String> corretcOptions;
     private List<String> errors;
     private TitleBar titleBar;
     private RecyclerView recyclerView;
@@ -113,14 +115,31 @@ public class OnlineTestResultFragment extends Fragment {
     private int processOption(){
         int score = 0;
         errors = new ArrayList<>();
+        corretcOptions = new ArrayList<>();
         for(int i = 0; i < MAX; i++){
             if(correctAnswers.get(i).getAnswer().equals(userAnswers.get(i))){
                 score += 10;
             }else{
                 errors.add(correctAnswers.get(i).getTitle());
+                switch (correctAnswers.get(i).getAnswer()) {
+                    case "A":
+                        corretcOptions.add(correctAnswers.get(i).getOptionA());
+                        break;
+                    case "B":
+                        corretcOptions.add(correctAnswers.get(i).getOptionB());
+                        break;
+                    case "C":
+                        corretcOptions.add(correctAnswers.get(i).getOptionC());
+                        break;
+                    case "D":
+                        corretcOptions.add(correctAnswers.get(i).getOptionD());
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-//        recyclerView.setAdapter(new ErrorAdapter(errors));
+        recyclerView.setAdapter(new ErrorAdapter(errors, corretcOptions));
         return score;
     }
 
