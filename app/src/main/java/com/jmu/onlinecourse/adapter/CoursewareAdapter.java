@@ -73,9 +73,10 @@ public class CoursewareAdapter extends RecyclerView.Adapter<CoursewareAdapter.Co
                 Context context = v.getContext();
                 DatabaseCollectionUtil util = new DatabaseCollectionUtil(context);
                 if(util.isInCollection(position, "ppt")){
-                    Toast.makeText(context, "您已收藏过此课件", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "您已收藏过此课件!", Toast.LENGTH_SHORT).show();
                 }else{
                     util.insert(position, coursewareName.get(position), "ppt");
+                    Toast.makeText(context, "收藏成功!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

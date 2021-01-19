@@ -60,19 +60,7 @@ public class TextFragment extends Fragment {
                 bundle.putString("name", data.get(position).getTextName());
                 bundle.putString("content", data.get(position).getTextContent());
                 bundle.putString("from", "index");
-//                String name;
-//                String content;
-//
-//                for(int i=0;i<data.size();i++){
-//                    if(data.get(i).getTextId() == position + 1){
-//                        name=data.get(i).getTextName();
-//                        System.out.println(name);
-//                        bundle.putString("name",name);
-//                        content=data.get(i).getTextContent();
-//                        bundle.putString("content",content);
-//                        break;
-//                    }
-//                }
+
                 ReadFragment readFragment = new ReadFragment();
                 readFragment.setArguments(bundle);
                 FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();

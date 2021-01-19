@@ -65,6 +65,8 @@ public class ReadFragment extends Fragment {
                 if(!databaseCollectionUtil.isInCollection(pama,"reading")){
                     databaseCollectionUtil.insert(pama,name,"reading");
                     Toast.makeText(getActivity(), "收藏成功！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "您收藏过该文章！", Toast.LENGTH_SHORT).show();
                 }
             }
         });
