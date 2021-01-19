@@ -61,7 +61,10 @@ public class CoursewareAdapter extends RecyclerView.Adapter<CoursewareAdapter.Co
             @Override
             public void onClick(View v) {
                 //通过webview查看对应课件
-                fragmentManager.beginTransaction().add(R.id.fragment_courseware, ShowCoursewareFragment.newInstance(coursewareUrl.get(position))).commit();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_courseware, ShowCoursewareFragment.newInstance(coursewareUrl.get(position)))
+                        .addToBackStack(null)
+                        .commit();
             }
         });
         holder.collect.setOnClickListener(new View.OnClickListener() {

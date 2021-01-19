@@ -38,6 +38,7 @@ public class TeachingVideoFragment extends Fragment {
     private VideoCardViewListAdapter mAdapter;
     private int page = 0;
     private DatabaseVideoUtil db;
+    private VideoPlayingFragment videoPlayingFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +75,7 @@ public class TeachingVideoFragment extends Fragment {
             // 增加播放量.............
             db.increasePlayVolume(item.getID());
 
-            VideoPlayingFragment videoPlayingFragment = new VideoPlayingFragment();
+            videoPlayingFragment = new VideoPlayingFragment();
             Bundle bundle = new Bundle();
             bundle.putLong("currentVideo", item.getID());
             bundle.putString("from", "index");
@@ -86,7 +87,7 @@ public class TeachingVideoFragment extends Fragment {
 
             Fragment fragment = manager.findFragmentByTag("index");
             transaction.hide(Objects.requireNonNull(fragment));
-            transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying").addToBackStack(null);
+            transaction.add(R.id.page_content, videoPlayingFragment, "videoPlaying");
             transaction.commit();
         });
 
@@ -130,5 +131,15 @@ public class TeachingVideoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden == false) {
+            if (videoPlayingFragment != null) {
+                videoPlayingFragment.onDestroy();
+            }
+        }
     }
 }
