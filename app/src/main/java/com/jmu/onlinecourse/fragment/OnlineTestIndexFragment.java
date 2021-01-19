@@ -24,7 +24,6 @@ public class OnlineTestIndexFragment extends Fragment {
 
     private Button begin_test;
     private Button show_score;
-    private TitleBar titleBar;
 
     public OnlineTestIndexFragment() {
         // Required empty public constructor
@@ -52,13 +51,6 @@ public class OnlineTestIndexFragment extends Fragment {
     }
     private void initView(View view)
     {
-        titleBar = view.findViewById(R.id.onlineTest_index_titlebar);
-        titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "点击返回", Toast.LENGTH_SHORT).show();
-            }
-        });
         //开始测试按钮
         begin_test = view.findViewById(R.id.begin_test);
         //展示成绩按钮
